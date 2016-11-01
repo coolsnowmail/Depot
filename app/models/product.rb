@@ -10,6 +10,7 @@ class Product < ActiveRecord::Base
     Product.order(:updated_at).last
   end
   has_many :line_items
+  has_many :orders, through: :line_items
   before_destroy :ensure_not_referenced_by_any_line_item
 
   private
