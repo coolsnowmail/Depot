@@ -1,0 +1,24 @@
+div class="depot_form"
+
+  = form_for @user do |f|
+    - if @user.errors.any?
+      #error_explanation
+        h2 = "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+        ul
+          - @user.errors.full_messages.each do |message|
+            li = message
+
+    fieldset
+      legend Введите сведения о пользователе
+      .field
+        = f.label :name
+        = f.text_field :name, size: 40
+      .field
+        = f.label :password
+        = f.text_field :password, size: 40
+      <div class="field">
+      .field
+        = f.label :password_confirmation
+        = f.password_field :password_confirmation, size: 40
+
+      .actions = f.submit
