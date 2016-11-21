@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
   def new_order_alerm(order)
     @order = order
 
-    mail to: order.email, subject: "there is a new order"
+    mail(to: ENV['gmail_username'], subject: "there is a new order")
   end
 end

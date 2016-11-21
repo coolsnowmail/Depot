@@ -35,28 +35,27 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring'
-<<<<<<< HEAD
-gem 'slim-rails'
+# <<<<<<< HEAD
 gem 'rails_12factor'
 gem 'rails_config'
 gem "figaro"
 # %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
 #   gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
 # end
-=======
+# =======
 gem "slim-rails"
->>>>>>> master
+# >>>>>>> master
 
-group :development, :test do
+group :test,:development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-<<<<<<< HEAD
+end
+
+# <<<<<<< HEAD
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-=======
->>>>>>> master
-end
+# =======
