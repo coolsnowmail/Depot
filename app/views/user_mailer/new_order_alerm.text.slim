@@ -1,0 +1,20 @@
+h5 there is a new order
+p number of order #{@order.id}
+p
+h5 client:
+p  name:     #{@order.name}
+p  address:  #{@order.address}
+p  email:    #{@order.email}
+p  pay type: #{@order.pay_type}
+p  created:  #{@order.created_at}
+p
+h5 order:
+- @order.line_items.each do |item|
+  table
+    tr
+      td
+        = item.product.id
+      td
+        = item.product.title
+      td
+        = item.quantity
