@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     if @cart.line_items.empty?
-      redirect_to store_url? notice: "Your cart is empty"
+      redirect_to store_url, notice: "Your cart is empty"
       return
     end
     @order = Order.new
@@ -42,7 +42,6 @@ class OrdersController < ApplicationController
         format.html { redirect_to store_url, notice: I18n.t('.thanks')}
         format.json { render :show, status: :created, location: @order }
       else
-        # @cart = current_cart
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end

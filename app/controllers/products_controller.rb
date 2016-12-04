@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
     end
   end
 
-    def who_bought
+  def who_bought
     @product = Product.find(params[:id])
     @lastest_order = @product.orders.order(:updated_at).last
     if stale?(@lastest_order)

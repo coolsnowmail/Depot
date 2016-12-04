@@ -1,16 +1,8 @@
 FactoryGirl.define do
-  factory :product do
+  factory :product, class: 'Product' do
     sequence(:title) { |i| "title#{i}"}
-    # title "title"
     description "description"
     image_url "image_url.png"
-    price 1
+    price 99.99
   end
-
-  # factory :product do |p|
-  #   sequence(:title) { |i| "title#{i}"}
-  #   description "description1"
-  #   image_url "image_url1.png"
-  #   price 100
-  # end
 end

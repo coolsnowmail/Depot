@@ -51,11 +51,11 @@ group :test,:development do
   gem 'byebug'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  gem 'shoulda-matchers', github: 'thoughtbot/shoulda-matchers'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
 
 # <<<<<<< HEAD
-  gem 'rspec-rails', '~> 3.0'
-  gem 'factory_girl_rails'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-# =======
+gem 'factory_girl_rails'
