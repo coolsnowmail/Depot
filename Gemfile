@@ -59,3 +59,8 @@ end
 # <<<<<<< HEAD
 
 gem 'factory_girl_rails'
+gem "typhoeus"
+gem 'yandex-money-sdk'
+gem 'httpclient'
+gem 'httparty'
+gem  'rest-client'

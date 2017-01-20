@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   delete 'logout' => :destroy
   end
 
+  # post  '/пополнение/счета', :to=> 'cabinet/balance#payment_process', :as => :payment_process
+  get "payment/call"
   get "sessions/create"
   get "sessions/destroy"
   resources :users
