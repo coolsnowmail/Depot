@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
@@ -33,20 +32,14 @@ gem 'bcrypt', '~> 3.1.7'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+
 gem 'spring'
-# <<<<<<< HEAD
 gem 'rails_12factor'
 gem 'rails_config'
-gem "figaro"
-# %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-#   gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
-# end
-# =======
-gem "slim-rails"
-# >>>>>>> master
+gem 'figaro'
+gem 'slim-rails'
 
-group :test,:development do
+group :test, :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   # Access an IRB console on exception pages or by using <%= console %> in views
@@ -56,11 +49,5 @@ group :test,:development do
   gem 'shoulda-callback-matchers', '~> 1.1.1'
 end
 
-# <<<<<<< HEAD
-
 gem 'factory_girl_rails'
-gem "typhoeus"
 gem 'yandex-money-sdk'
-gem 'httpclient'
-gem 'httparty'
-gem  'rest-client'

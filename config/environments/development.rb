@@ -58,4 +58,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+
+  config.yandex_client_id = '7FB6DC218BCED188C2ACA8F824ED1938971DFC0C476077B47675A4C2A099F31A'
+  config.yandex_wallet_id = '410013732107323'
 end

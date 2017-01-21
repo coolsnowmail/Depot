@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
+  require 'yandex_money/api'
+
   include CurrentCart
   skip_before_action :authorize, only: [:new, :create]
   before_action :set_cart, only: [:new, :create]
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :payment_form]
 
   # GET /orders
   # GET /orders.json
@@ -18,7 +20,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     if @cart.line_items.empty?
-      redirect_to store_url, notice: "Your cart is empty"
+      redirect_to store_url, notice: 'Your cart is empty'
       return
     end
     @order = Order.new
@@ -39,7 +41,7 @@ class OrdersController < ApplicationController
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         UserMailer.new_order_alerm(@order).deliver
-        format.html { redirect_to store_url, notice: I18n.t('.thanks')}
+        format.html { redirect_to payment_form_order_path(@order) }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }
@@ -53,7 +55,7 @@ class OrdersController < ApplicationController
   def update
     respond_to do |format|
       if @order.update(order_params)
-        format.html { redirect_to @order, notice: 'Order was successfully updated.' }
+        format.html { redirect_to payment_form_order_path(@order) }
         format.json { render :show, status: :ok, location: @order }
       else
         format.html { render :edit }
@@ -70,6 +72,20 @@ class OrdersController < ApplicationController
       format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def payment_form
+    instance_id = YandexMoney::ExternalPayment.get_instance_id(Rails.application.config.yandex_client_id)
+    api = YandexMoney::ExternalPayment.new(instance_id.instance_id)
+
+    response = api.request_external_payment(pattern_id: 'p2p',
+                                            to:         Rails.application.config.yandex_wallet_id,
+                                            amount_due: '1.00', # @order.amount?
+                                            message:    'test') # @order.description?
+
+    @form_params = api.process_external_payment(request_id:           response.request_id,
+                                                ext_auth_success_uri: 'http://localhost:3000/success_url',
+                                                ext_auth_fail_uri:    'http://localhost:3000/fail_url')
   end
 
   private
