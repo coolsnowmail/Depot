@@ -19,10 +19,13 @@ Rails.application.routes.draw do
   scope '(:locale)' do
     resources :orders do
       member do
-        get :payment_form
+        get :payment_by_ym
+        get :payment_by_card
+        get :payment_by_stripe
       end
     end
     resources :line_items
+    resources :charges, only: [:create]
     resources :carts
     root 'store#index', as: 'store', via: :all
   end

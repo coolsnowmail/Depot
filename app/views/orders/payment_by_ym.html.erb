@@ -1,0 +1,19 @@
+<table>
+    <%= render(@order.line_items) %>
+    <h4> Ваш заказ № <%= @order.id %> </h4>
+    <tr class="total_line">
+      <td colspan="2">Total</td>
+      <td class="total_cell"><%= number_to_currency(@order.total_price) %></td>
+    </tr>
+</table>
+
+<form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+    <input type="hidden" name="receiver" value="<%= Rails.application.config.yandex_wallet_id %>">
+    <input type="hidden" name="quickpay-form" value="small">
+    <input type="hidden" name="targets" value="транзакция за ордер № <%= @order.id %>">
+    <input type="hidden" name="sum" value=<%= @order.total_price %> data-type="number">
+    <input type="hidden" name="comment" value="транзакция за ордер № <%= @order.id %>">
+    <input type="hidden" name="successURL" value="http://localhost:3000/">
+    <input type="hidden" name="paymentType" value="PC">
+    <input type="submit" value="Оформить заказ">
+</form>

@@ -36,7 +36,10 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  config.yandex_wallet_id = '410014868634611'
 
+  config.stripe_publishable_key = 'pk_test_wUGYXgVi5UzLe4LaFCUrX7Oe'
+  config.stripe_secret_key      = 'sk_test_5xjagQ92v5wxu5NBgGqaehb8'
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

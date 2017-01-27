@@ -10,9 +10,6 @@ RSpec.describe Cart, :type => :model do
   describe 'custom method for cart' do
     let!(:cart) { create(:cart) }
     let!(:product) { create(:product) }
-    # let!(:line_item) { create(:line_item, cart: cart, product: product) }
-    # let!(:product1) { create(:product) }
-    # let!(:line_item1) { create(:line_item, cart: cart, product: product1, quantity: 2) }
 
    context 'should check total_price method' do
     it 'should summ price' do

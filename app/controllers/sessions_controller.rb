@@ -10,12 +10,12 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to admin_url
     else
-      redirect_to login_url, alert: "Wrong name or password"
+      redirect_to login_url, alert: I18n.t("sessions.wrong_name_or_password")
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to store_url, notice: "The session is over"
+    redirect_to store_url, notice: I18n.t("sessions.the_session_is_over")
   end
 end

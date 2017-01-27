@@ -2,9 +2,10 @@ class OrdersController < ApplicationController
   require 'yandex_money/api'
 
   include CurrentCart
-  skip_before_action :authorize, only: [:new, :create]
+  skip_before_action :authorize, only: [:new, :create, :payment_by_ym, :payment_by_card, :payment_by_stripe]
   before_action :set_cart, only: [:new, :create]
-  before_action :set_order, only: [:show, :edit, :update, :destroy, :payment_form]
+  before_action :set_order, only: [:show, :edit, :update, :destroy, :payment_by_ym, :payment_by_card, :payment_by_stripe]
+
 
   # GET /orders
   # GET /orders.json
@@ -40,9 +41,24 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+<<<<<<< 210b9e4c555ca5294d230101bd25ce1f91b7361a
+        # UserMailer.new_order_alerm(@order).deliver
+        if @order.pay_type == "By Yandex Money"
+          format.html { redirect_to payment_by_ym_order_path(@order) }
+        end
+        if @order.pay_type == "By Credit card"
+          format.html { redirect_to payment_by_card_order_path(@order) }
+        end
+        if @order.pay_type == "By Stripe"
+          format.html { redirect_to payment_by_stripe_order_path(@order.id) }
+        end
+
+
+=======
         UserMailer.new_order_alerm(@order).deliver
         format.html { redirect_to payment_form_order_path(@order) }
         format.json { render :show, status: :created, location: @order }
+>>>>>>> Added Yandex payment form for order payment processing
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -74,6 +90,29 @@ class OrdersController < ApplicationController
     end
   end
 
+<<<<<<< 210b9e4c555ca5294d230101bd25ce1f91b7361a
+  # def payment_form
+  #   instance_id = YandexMoney::ExternalPayment.get_instance_id(Rails.application.config.yandex_client_id)
+  #   api = YandexMoney::ExternalPayment.new(instance_id.instance_id)
+
+  #   response = api.request_external_payment(pattern_id: 'p2p',
+  #                                           to:         Rails.application.config.yandex_wallet_id,
+  #                                           amount_due: '1.00', # @order.amount?
+  #                                           message:    'test') # @order.description?
+
+  #   @form_params = api.process_external_payment(request_id:           response.request_id,
+  #                                               ext_auth_success_uri: 'http://localhost:3000/success_url',
+  #                                               ext_auth_fail_uri:    'http://localhost:3000/fail_url')
+  # end
+  def payment_by_ym
+  end
+
+  def payment_by_card
+  end
+
+  def payment_by_stripe
+    # Amount in cents
+=======
   def payment_form
     instance_id = YandexMoney::ExternalPayment.get_instance_id(Rails.application.config.yandex_client_id)
     api = YandexMoney::ExternalPayment.new(instance_id.instance_id)
@@ -86,6 +125,7 @@ class OrdersController < ApplicationController
     @form_params = api.process_external_payment(request_id:           response.request_id,
                                                 ext_auth_success_uri: 'http://localhost:3000/success_url',
                                                 ext_auth_fail_uri:    'http://localhost:3000/fail_url')
+>>>>>>> Added Yandex payment form for order payment processing
   end
 
   private

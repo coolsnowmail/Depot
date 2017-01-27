@@ -3,13 +3,6 @@ require "rails_helper"
 
 RSpec.describe CartsController, :type => :controller do
 
-  # let!(:cart) { create(:cart) }
-  # context 'for index' do
-  #   it 'should check containtion of @carts of index action' do
-  #     expect(cart.line_items[0]).to eq(1)
-  #   end
-  # end
-
   let!(:user) { create(:user) }
   let!(:cart1) { create(:cart) }
   let!(:cart2) { create(:cart) }

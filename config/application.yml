@@ -9,3 +9,7 @@
 # production:
   gmail_username: 'cool.snow.mail@gmail.com'
   gmail_password: '89272755555'
+
+
+  # PUBLISHABLE_KEY: 'pk_test_wUGYXgVi5UzLe4LaFCUrX7Oe'
+  # SECRET_KEY:      'sk_test_5xjagQ92v5wxu5NBgGqaehb8'

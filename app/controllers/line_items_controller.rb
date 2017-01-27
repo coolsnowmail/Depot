@@ -27,8 +27,9 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    if params[:product_id]
-      @line_item = @cart.add_product(params[:product_id])
+    product = Product.find_by(id: params[:product_id])
+    if product
+      @line_item = @cart.add_product(product.id)
       respond_to do |format|
         if @line_item.save
           format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }

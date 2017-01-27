@@ -87,5 +87,8 @@ Rails.application.configure do
    :authentication       => "plain",
   :enable_starttls_auto => true
   }
+  config.yandex_wallet_id = '410014868634611'
 
+  config.stripe_publishable_key = 'pk_test_wUGYXgVi5UzLe4LaFCUrX7Oe'
+  config.stripe_secret_key      = 'sk_test_5xjagQ92v5wxu5NBgGqaehb8'
 end
