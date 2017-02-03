@@ -58,9 +58,4 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
-
-  config.yandex_wallet_id = '410014868634611'
-
-  config.stripe_publishable_key = 'pk_test_wUGYXgVi5UzLe4LaFCUrX7Oe'
-  config.stripe_secret_key      = 'sk_test_5xjagQ92v5wxu5NBgGqaehb8'
 end

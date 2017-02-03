@@ -31,8 +31,6 @@ class OrdersController < ApplicationController
   def edit
   end
 
-  # POST /orders
-  # POST /orders.json
   def create
     @order = Order.new(order_params)
     @order.add_line_items_from_cart(@cart)
@@ -41,24 +39,16 @@ class OrdersController < ApplicationController
       if @order.save
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
-<<<<<<< 210b9e4c555ca5294d230101bd25ce1f91b7361a
         # UserMailer.new_order_alerm(@order).deliver
-        if @order.pay_type == "By Yandex Money"
-          format.html { redirect_to payment_by_ym_order_path(@order) }
+        if order_params[:pay_type] == 1
+          format.html { redirect_to payment_by_ym_order_path(@order), notice: I18n.t('.thanks') }
         end
-        if @order.pay_type == "By Credit card"
-          format.html { redirect_to payment_by_card_order_path(@order) }
+        if order_params[:pay_type] == 2
+          format.html { redirect_to payment_by_card_order_path(@order), notice: I18n.t('.thanks') }
         end
-        if @order.pay_type == "By Stripe"
-          format.html { redirect_to payment_by_stripe_order_path(@order.id) }
+        if order_params[:pay_type] == 3
+          format.html { redirect_to payment_by_stripe_order_path(@order.id), notice: I18n.t('.thanks') }
         end
-
-
-=======
-        UserMailer.new_order_alerm(@order).deliver
-        format.html { redirect_to payment_form_order_path(@order) }
-        format.json { render :show, status: :created, location: @order }
->>>>>>> Added Yandex payment form for order payment processing
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
@@ -66,8 +56,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /orders/1
-  # PATCH/PUT /orders/1.json
+
   def update
     respond_to do |format|
       if @order.update(order_params)
@@ -80,8 +69,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.json
   def destroy
     @order.destroy
     respond_to do |format|
@@ -90,20 +77,6 @@ class OrdersController < ApplicationController
     end
   end
 
-<<<<<<< 210b9e4c555ca5294d230101bd25ce1f91b7361a
-  # def payment_form
-  #   instance_id = YandexMoney::ExternalPayment.get_instance_id(Rails.application.config.yandex_client_id)
-  #   api = YandexMoney::ExternalPayment.new(instance_id.instance_id)
-
-  #   response = api.request_external_payment(pattern_id: 'p2p',
-  #                                           to:         Rails.application.config.yandex_wallet_id,
-  #                                           amount_due: '1.00', # @order.amount?
-  #                                           message:    'test') # @order.description?
-
-  #   @form_params = api.process_external_payment(request_id:           response.request_id,
-  #                                               ext_auth_success_uri: 'http://localhost:3000/success_url',
-  #                                               ext_auth_fail_uri:    'http://localhost:3000/fail_url')
-  # end
   def payment_by_ym
   end
 
@@ -111,31 +84,16 @@ class OrdersController < ApplicationController
   end
 
   def payment_by_stripe
-    # Amount in cents
-=======
-  def payment_form
-    instance_id = YandexMoney::ExternalPayment.get_instance_id(Rails.application.config.yandex_client_id)
-    api = YandexMoney::ExternalPayment.new(instance_id.instance_id)
-
-    response = api.request_external_payment(pattern_id: 'p2p',
-                                            to:         Rails.application.config.yandex_wallet_id,
-                                            amount_due: '1.00', # @order.amount?
-                                            message:    'test') # @order.description?
-
-    @form_params = api.process_external_payment(request_id:           response.request_id,
-                                                ext_auth_success_uri: 'http://localhost:3000/success_url',
-                                                ext_auth_fail_uri:    'http://localhost:3000/fail_url')
->>>>>>> Added Yandex payment form for order payment processing
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = Order.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :address, :email, :pay_type)
+      par = params.require(:order).permit(:name, :address, :email, :pay_type)
+      par[:pay_type] = par[:pay_type].to_i
+      return par
     end
 end

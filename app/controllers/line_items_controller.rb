@@ -28,7 +28,9 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     product = Product.find_by(id: params[:product_id])
-    if product
+    unless product
+      render :file => '/public/404.html', status => 404, :layout => true
+    end
       @line_item = @cart.add_product(product.id)
       respond_to do |format|
         if @line_item.save
@@ -40,9 +42,6 @@ class LineItemsController < ApplicationController
           format.json { render json: @line_item.errors, status: :unprocessable_entity }
         end
       end
-    else
-      render :file => '/public/404.html', status => 404, :layout => true
-    end
   end
 
   # PATCH/PUT /line_items/1

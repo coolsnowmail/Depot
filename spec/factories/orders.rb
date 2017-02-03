@@ -3,6 +3,6 @@ FactoryGirl.define do
     sequence(:name) { |i| "name#{i}"}
     address 'address'
     email 'email@mail.com'
-    pay_type 'Check'
+    pay_type 2
   end
 end

@@ -52,4 +52,4 @@ end
 gem 'factory_girl_rails'
 gem 'yandex-money-sdk'
 gem 'stripe'
-
+gem 'rest-client'

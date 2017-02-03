@@ -37,3 +37,10 @@ en:
   sessions:
     wrong_name_or_password: "Wrong name or password"
     the_session_is_over: "The session is over"
+  charges:
+    order_transaction: "transaction for order %{order_id}"
+    number_of_the_order_is_incorrect: "Number of the order is incorrect"
+    your order: "Your order %{order_id}"
+    total price is: "total price is %{total_price}"
+    place order: "place order"
+    notice for successfully stripe payment: "Order № %{order_id} was successfully paid. Summ was equel %{order_price}"

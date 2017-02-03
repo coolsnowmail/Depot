@@ -1,5 +1,5 @@
 class Order < ActiveRecord::Base
-  enum pay_type: ["By Yandex Money", "By Credit card", "By Stripe"]
+  enum pay_type: {"By Yandex Money" => 1, "By Credit card" => 2, "By Stripe" => 3}
   validates :name, :address, :email, presence: true
   validates :pay_type, inclusion: {in: Order.pay_types.keys}
   has_many :line_items, dependent: :destroy

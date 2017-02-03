@@ -90,13 +90,13 @@ RSpec.describe OrdersController, :type => :controller do
     end
 
     it 'should add line_items from a cart' do
-      post :create, :order => {name: "name", address: "address", email: "email@mail.com", pay_type: "Check"}
+      post :create, :order => {name: "name", address: "address", email: "email@mail.com", pay_type: 2}
       expect(assigns(:order).line_items).to eq(cart.line_items)
     end
 
     it 'should create order' do
-      post :create, :order => {name: "name", address: "address", email: "email@mail.com", pay_type: "Check"}
-      expect(response).to redirect_to(store_url)
+      post :create, :order => {name: "name", address: "address", email: "email@mail.com", pay_type: 2}
+      expect(response).to redirect_to(payment_by_card_order_path(assigns(:order).id))
       expect(flash[:notice]).to eq(I18n.t('.thanks'))
       expect(session[:cart_id]).to eq(nil)
       expect { UserMailer.new_order_alerm(assigns(:order)).deliver }
@@ -104,7 +104,7 @@ RSpec.describe OrdersController, :type => :controller do
     end
 
     it 'should render new if order not created' do
-      post :create, :order => {name: nil, address: nil, email: nil, pay_type: nil}
+      post :create, :order => {name: nil, address: nil, email: nil, pay_type: 2}
       expect(response).to render_template(:new)
       expect(assigns(:cart)).to eq(cart)
     end
@@ -123,6 +123,26 @@ RSpec.describe OrdersController, :type => :controller do
       delete :destroy, id: order1.id
       expect(response).to redirect_to(orders_url)
       expect(flash[:notice]).to eq('Order was successfully destroyed.')
+    end
+  end
+
+  context 'for 3 equel action' do
+    it 'should render payment_by_ym' do
+      get :payment_by_ym, id: order1.id
+      expect(response).to render_template(:payment_by_ym)
+      expect(assigns(:order)).to eq(order1)
+    end
+
+    it 'should render payment_by_card' do
+      get :payment_by_card, id: order1.id
+      expect(response).to render_template(:payment_by_card)
+      expect(assigns(:order)).to eq(order1)
+    end
+
+    it 'should render payment_by_stripe' do
+      get :payment_by_stripe, id: order1.id
+      expect(response).to render_template(:payment_by_stripe)
+      expect(assigns(:order)).to eq(order1)
     end
   end
 end
