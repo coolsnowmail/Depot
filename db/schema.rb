@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 20161027145628) do
     t.string   "name"
     t.text     "address"
     t.string   "email"
-    t.string   "pay_type"
+    t.integer  "pay_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

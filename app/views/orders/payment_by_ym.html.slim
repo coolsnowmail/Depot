@@ -1,0 +1,13 @@
+== render 'cart_view'
+br
+br
+
+<form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+    <input type="hidden" name="receiver" value="#{ENV['yandex_wallet_id'] }">
+    <input type="hidden" name="quickpay-form" value="small">
+    <input type="hidden" name="targets" value="#{t('charges.order_transaction', order_id: @order.id)}">
+    <input type="hidden" name="sum" value=#{@order.total_price} data-type="number">
+    <input type="hidden" name="comment" value="#{t('charges.order_transaction', order_id: @order.id)}">
+    <input type="hidden" name="successURL" value="http://localhost:3000/">
+    <input type="hidden" name="paymentType" value="PC">
+    <input type="submit" value="#{t('charges.place order')}">

@@ -1,0 +1,4 @@
+h3 =t('charges.your order', order_id: @order.id)
+= render(@order.line_items)
+<h2 class="total_line">
+  =t('charges.total price is', total_price: @order.total_price)

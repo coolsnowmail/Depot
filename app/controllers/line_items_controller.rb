@@ -27,19 +27,21 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
-
-    respond_to do |format|
-      if @line_item.save
-        format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
-        format.js { @current_item = @line_item }
-        format.json { render :show, status: :created, location: @line_item }
-      else
-        format.html { render :new }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
-      end
+    product = Product.find_by(id: params[:product_id])
+    unless product
+      render :file => '/public/404.html', status => 404, :layout => true
     end
+      @line_item = @cart.add_product(product.id)
+      respond_to do |format|
+        if @line_item.save
+          format.html { redirect_to @line_item.cart, notice: 'Line item was successfully created.' }
+          format.js { @current_item = @line_item }
+          format.json { render :show, status: :created, location: @line_item }
+        else
+          format.html { render :new }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
+      end
   end
 
   # PATCH/PUT /line_items/1
@@ -69,7 +71,7 @@ class LineItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
-      @line_item = LineItem.find(params[:id])
+      @line_item = LineItem.find_by(id: params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

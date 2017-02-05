@@ -18,5 +18,5 @@
     = f.text_field :email, size: 40
   .field
     = f.label :pay_type
-    = f.select :pay_type, Order::PAYMENT_TYPES, prompt: t('.pay_prompt_html')
+    = f.select :pay_type, Order.pay_types, prompt: t('.pay_prompt_html')
   .actions = f.submit t('.submit')
